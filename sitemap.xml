@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ruiers.com/sure/index.html</loc>
+    
+    <lastmod>2016-06-27T07:11:32.823Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/categories/index.html</loc>
+    
+    <lastmod>2016-06-27T07:08:30.871Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/tags/index.html</loc>
+    
+    <lastmod>2016-06-27T07:08:14.295Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2016/06/27/how-to-write-an-article-by-hexo/</loc>
+    
+    <lastmod>2016-06-27T07:02:08.851Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ruiers.com/2016/06/27/hello-world/</loc>
     
     <lastmod>2016-06-27T03:03:44.915Z</lastmod>
