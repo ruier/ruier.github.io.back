@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: East Dev
-subtitle: Life * Live * Work
-description: Just a place expand my MEM
+title: Maven East
+subtitle: Maven -- 知识的积累
+description: 世事洞明皆学问，人情练达即文章
 author: Royce Chiang
 language: zh-Hans
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
