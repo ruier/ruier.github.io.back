@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ruiers.com/"/>
-  <updated>2016-07-01T03:03:18.126Z</updated>
+  <updated>2016-07-01T03:08:53.652Z</updated>
   <id>http://ruiers.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://ruiers.com/2016/07/01/two-ramdisk-in-linux/"/>
     <id>http://ruiers.com/2016/07/01/two-ramdisk-in-linux/</id>
     <published>2016-07-01T02:42:05.000Z</published>
-    <updated>2016-07-01T03:03:18.126Z</updated>
+    <updated>2016-07-01T03:08:53.652Z</updated>
     
     <content type="html">&lt;h1 id=&quot;使用-ramdisk-启动-Linux-内核&quot;&gt;&lt;a href=&quot;#使用-ramdisk-启动-Linux-内核&quot; class=&quot;headerlink&quot; title=&quot;使用 ramdisk 启动 Linux 内核&quot;&gt;&lt;/a&gt;使用 ramdisk 启动 Linux 内核&lt;/h1&gt;&lt;h2 id=&quot;Buildroot-的-ramdisk-镜像支持&quot;&gt;&lt;a href=&quot;#Buildroot-的-ramdisk-镜像支持&quot; class=&quot;headerlink&quot; title=&quot;Buildroot 的 ramdisk 镜像支持&quot;&gt;&lt;/a&gt;Buildroot 的 ramdisk 镜像支持&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。&lt;/p&gt;
@@ -47,7 +47,9 @@
       <category term="linux" scheme="http://ruiers.com/categories/linux/"/>
     
     
-      <category term="linux ramdisk" scheme="http://ruiers.com/tags/linux-ramdisk/"/>
+      <category term="linux" scheme="http://ruiers.com/tags/linux/"/>
+    
+      <category term="ramdisk" scheme="http://ruiers.com/tags/ramdisk/"/>
     
   </entry>
   
