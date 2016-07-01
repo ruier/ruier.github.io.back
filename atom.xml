@@ -54,6 +54,226 @@
   </entry>
   
   <entry>
+    <title>house finding</title>
+    <link href="http://ruiers.com/2013/02/13/house-finding/"/>
+    <id>http://ruiers.com/2013/02/13/house-finding/</id>
+    <published>2013-02-13T08:43:39.000Z</published>
+    <updated>2016-07-01T08:44:34.070Z</updated>
+    
+    <content type="html">&lt;p&gt;海天大厦    江夏大花岭大学城&lt;br&gt;金地中心&lt;br&gt;佳源花都&lt;br&gt;蓝晶国际&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;海天大厦    江夏大花岭大学城&lt;br&gt;金地中心&lt;br&gt;佳源花都&lt;br&gt;蓝晶国际&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="生活" scheme="http://ruiers.com/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="http://ruiers.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>交叉编译 ALSA</title>
+    <link href="http://ruiers.com/2012/12/20/cross-compile-alsa/"/>
+    <id>http://ruiers.com/2012/12/20/cross-compile-alsa/</id>
+    <published>2012-12-20T08:35:13.000Z</published>
+    <updated>2016-07-01T08:42:33.679Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;交叉编译-ALSA&quot;&gt;&lt;a href=&quot;#交叉编译-ALSA&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 ALSA&quot;&gt;&lt;/a&gt;交叉编译 ALSA&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;问题描述:在需要移植 android 录音问题的时候发现 buildroot 下没有 arecord
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解决方法;自己编译,使用交叉编译链&lt;/p&gt;
+&lt;p&gt;系统已经有 交叉编译工具 :&lt;br&gt;ls /usr/local/arm-2007q1/&lt;br&gt;arm-none-linux-gnueabi/ include/                libexec/&lt;br&gt;bin/                    lib/                    share/&lt;br&gt;需要将 bin 加入到 PATH 然后 ./configure 才能找到交叉编译工具&lt;br&gt;checking for arm-none-linux-gnueabi-strip… arm-none-linux-gnueabi-strip&lt;br&gt;checking for arm-none-linux-gnueabi-gcc… arm-none-linux-gnueabi-gcc&lt;br&gt;checking for C compiler default output… a.out&lt;br&gt;checking whether the C compiler works… yes&lt;br&gt;checking whether we are cross compiling… yes&lt;/p&gt;
+&lt;p&gt;否则找不到就使用系统默认的 gcc 工具编译了&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://www.alsa-project.org/main/index.php/Download&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.alsa-project.org/main/index.php/Download&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;交叉编译-alsa-lib&quot;&gt;&lt;a href=&quot;#交叉编译-alsa-lib&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 alsa-lib&quot;&gt;&lt;/a&gt;交叉编译 alsa-lib&lt;/h2&gt;&lt;p&gt;./configure –host=arm-none-linux-gnueabi –prefix=/usr/share/arm-alsa&lt;br&gt;make &amp;amp; make install                                                                                        &lt;/p&gt;
+&lt;h2 id=&quot;交叉编译-alsa-utils&quot;&gt;&lt;a href=&quot;#交叉编译-alsa-utils&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 alsa-utils&quot;&gt;&lt;/a&gt;交叉编译 alsa-utils&lt;/h2&gt;&lt;p&gt;./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –without-alsamixer // avoid the ncurses lib &lt;/p&gt;
+&lt;p&gt;  使用&lt;br&gt;./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –with-curses=/usr/lib32/libcurses.so –includedir=/usr/include/ –disable-alsamixer&lt;br&gt;   ref:&lt;a href=&quot;http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html&lt;/a&gt;&lt;br&gt;make&lt;br&gt;Copy lib to target board&lt;br&gt;cp -avr /usr/share/arm-alsa {$rootfs}/usr/share/arm-alsa&lt;/p&gt;
+&lt;h2 id=&quot;环境变量&quot;&gt;&lt;a href=&quot;#环境变量&quot; class=&quot;headerlink&quot; title=&quot;环境变量&quot;&gt;&lt;/a&gt;环境变量&lt;/h2&gt;&lt;p&gt;export ALSA_CONFIG_PATH=/usr/share/arm-alsa/share/alsa/alsa.conf&lt;br&gt;未添加环境变量前出现的错误：&lt;br&gt;~ # ./aplay&lt;br&gt;ALSA lib conf.c:2827:(snd_config_hook_load) cannot access file /usr/share/arm-alsa/share/alsa/cards/aliases.conf&lt;br&gt;ALSA lib pcm.c:1959:(snd_pcm_open_conf) Invalid type for PCM default definition (id: default, value: cards.pcm.default)&lt;br&gt;aplay: main:533: audio open error: Invalid argument&lt;br&gt;~ # ./aplay&lt;br&gt;ALSA lib pcm.c:2090:(snd_pcm_open_noupdate) Unknown PCM default&lt;br&gt;aplay: main:533: audio open error: No such file or directory&lt;/p&gt;
+&lt;h2 id=&quot;交叉编译其他程序：&quot;&gt;&lt;a href=&quot;#交叉编译其他程序：&quot; class=&quot;headerlink&quot; title=&quot;交叉编译其他程序：&quot;&gt;&lt;/a&gt;交叉编译其他程序：&lt;/h2&gt;&lt;p&gt;Add included file in program: #include &lt;alsa asoundlib.h=&quot;&quot;&gt;&lt;br&gt;~# arm-none-linux-gnueabi-gcc -lasound -L/usr/share/arm-alsa/lib/ -I/usr/share/arm-alsa/include/ -o test my_test.c&lt;/alsa&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;交叉编译-ALSA&quot;&gt;&lt;a href=&quot;#交叉编译-ALSA&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 ALSA&quot;&gt;&lt;/a&gt;交叉编译 ALSA&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;问题描述:在需要移植 android 录音问题的时候发现 build
+    
+    </summary>
+    
+      <category term="Android" scheme="http://ruiers.com/categories/Android/"/>
+    
+    
+      <category term="工作" scheme="http://ruiers.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>audio and display issue</title>
+    <link href="http://ruiers.com/2012/12/20/audio-and-display-issue/"/>
+    <id>http://ruiers.com/2012/12/20/audio-and-display-issue/</id>
+    <published>2012-12-20T08:32:01.000Z</published>
+    <updated>2016-07-01T08:35:53.708Z</updated>
+    
+    <content type="html">&lt;pre&gt;&lt;code&gt;系统:Android 4.0.4
+硬件:sama5d3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;测试发现 NFS 和 SD 镜像,音频播放都正常,但是 UBI 镜像老是出现问题:&lt;br&gt;The Notes from Eric&lt;br&gt;​&lt;/p&gt;
+&lt;h2 id=&quot;UBIFS&quot;&gt;&lt;a href=&quot;#UBIFS&quot; class=&quot;headerlink&quot; title=&quot;UBIFS&quot;&gt;&lt;/a&gt;UBIFS&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;UBI/UBIFS have already appeared in mainline
+
+We should disable DMA when working with UBI
+
+UBI/UBIFS do not need OOB area
+
+Working with UBIFS 
+
+We should disable DMA when working with UBI ,
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;UBIFS 的工作对 nand 的 DMA 有着严格的要求,开始没有注意这一点,但是所有的功能都没有出现什么问题,只是体现在音频播放上.&lt;br&gt;所以 disable DMA of nand 就可以解决这个问题.然而这样的问题非常不容易发现.而且容易走错方向.&lt;/p&gt;
+&lt;h2 id=&quot;显示的问题&quot;&gt;&lt;a href=&quot;#显示的问题&quot; class=&quot;headerlink&quot; title=&quot;显示的问题:&quot;&gt;&lt;/a&gt;显示的问题:&lt;/h2&gt;&lt;p&gt;没有显示加速的硬件,无法得到很好的用户体验,尽管系统做了一些显示优化得到了一些可观的测试数据,但是这并不能提高什么&lt;br&gt;在测试发现,影响显示性能的绝对因数来自内核,由于内核的一个等待,导致上层所有优化失效.解决这个等待,才能稍微提高测试数据.&lt;br&gt;但是用户体验仍然不很乐观.&lt;/p&gt;
+&lt;h2 id=&quot;总结这个显示优化的结果&quot;&gt;&lt;a href=&quot;#总结这个显示优化的结果&quot; class=&quot;headerlink&quot; title=&quot;总结这个显示优化的结果:&quot;&gt;&lt;/a&gt;总结这个显示优化的结果:&lt;/h2&gt;&lt;p&gt;使用 copybit 完全没有起到任何作用,也许在局部绘图没有回拷操作可以节省一点时间,但是效果微乎其微.&lt;br&gt;使用 hwcomposer 可以得到大概 50% 的数据优化,用户体验也能有一定的改善.这是确实节省了 SurfaceFlinger 的 compose 时间,尤其在&lt;br&gt;测试的时候,没有全屏幕的测试数据,造成不断的叠加组合,去掉这部分时间,可以大大优化测试数据.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;系统:Android 4.0.4
+硬件:sama5d3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;测试发现 NFS 和 SD 镜像,音频播放都正常,但是 UBI 镜像老是出现问题:&lt;br&gt;The Notes from Eric&lt;br&gt;​&lt;/p&gt;
+&lt;h2 id=&quot;UBI
+    
+    </summary>
+    
+      <category term="Android" scheme="http://ruiers.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://ruiers.com/tags/Android/"/>
+    
+      <category term="工作" scheme="http://ruiers.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android GUI system</title>
+    <link href="http://ruiers.com/2012/04/20/Android-GUI-system/"/>
+    <id>http://ruiers.com/2012/04/20/Android-GUI-system/</id>
+    <published>2012-04-20T08:21:43.000Z</published>
+    <updated>2016-07-01T08:26:49.315Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。&quot;&gt;&lt;a href=&quot;#基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。&quot; class=&quot;headerlink&quot; title=&quot;基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。&quot;&gt;&lt;/a&gt;基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。&lt;/h2&gt;&lt;p&gt;目前&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内核 linux-2.6.39 &lt;/li&gt;
+&lt;li&gt;android 2.3.5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GUI 系统从下至上经过 ：&lt;/p&gt;
+&lt;p&gt;Linux 内核驱动  —-&amp;gt;  Gralloc HAL  ——&amp;gt;   FrameBufferNativeWindow  ——-&amp;gt;  &lt;/p&gt;
+&lt;p&gt;首先看看内核的驱动主要是 LCD 显示驱动和 overlay 的基于 V4L 的 video 驱动。&lt;br&gt;9x5 的 LCD 控制器，支持 4 层显示， base/ovr1/HEO/HCC  。分别是 ：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;base 层，基本的显示层，我们一般的显示都是使用这一层，里面是唯一包含背光控制模块的一层。&lt;/li&gt;
+&lt;li&gt;ovr1 层，overlay 层，数据可以直接往这上面送，它的数据显示在 base 层之上，支持一些 rotation 和色彩变换&lt;/li&gt;
+&lt;li&gt;HEO 层，这一层的功能最多，支持 rotation 以及 scale 等，在驱动中使用 V4L 作成了 video 驱动。&lt;br&gt;HEO 和 OVR1 的显示位置可调节，可以设置寄存器支持谁显示在上面&lt;br&gt;HCC  层，这是一个硬件光标显示层，在 LCDC 显示在最上面。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;目前的 2.6.39 驱动将前面的 3 个都做了出来， HCC 用的较少，所以还没有支持。&lt;/p&gt;
+&lt;h3 id=&quot;Linux-驱动&quot;&gt;&lt;a href=&quot;#Linux-驱动&quot; class=&quot;headerlink&quot; title=&quot;Linux 驱动&quot;&gt;&lt;/a&gt;Linux 驱动&lt;/h3&gt;&lt;p&gt;下面具体来分析一下这几层的 Linux 驱动程序。&lt;/p&gt;
+&lt;p&gt;首先在平台设备里面注册了我们需要的两个设备  &lt;em&gt;base&lt;/em&gt; 和 &lt;em&gt;ovr1&lt;/em&gt; 的设备。&lt;br&gt;at91sam9x5_devices.c&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static struct platform_device at91_lcdc_base_device = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.name		= &amp;quot;atmel_hlcdfb_base&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.id		= 0,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.dev		= &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.dma_mask		= &amp;amp;lcdc_dmamask,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.coherent_dma_mask	= DMA_BIT_MASK(32),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.platform_data		= &amp;amp;lcdc_data,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.resource	= lcdc_base_resources,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.num_resources	= ARRAY_SIZE(lcdc_base_resources),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static struct platform_device at91_lcdc_ovl_device = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.name		= &amp;quot;atmel_hlcdfb_ovl&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.id		= 0,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.dev		= &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.dma_mask		= &amp;amp;lcdc_dmamask,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.coherent_dma_mask	= DMA_BIT_MASK(32),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				.platform_data		= &amp;amp;lcdc_data,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.resource	= lcdc_ovl1_resources,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.num_resources	= ARRAY_SIZE(lcdc_ovl1_resources),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void __init at91_add_device_lcdc(struct atmel_lcdfb_info *data)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	platform_device_register(&amp;amp;at91_lcdc_base_device);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	platform_device_register(&amp;amp;at91_lcdc_ovl_device);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注册了两个设备 atmel_hlcdfb_base 和 atmel_hlcdfb_ovl &lt;/p&gt;
+&lt;p&gt;驱动程序  atmel_hlcdfb.c&lt;br&gt;将注册的两个设备放在 device tabel 中。他们公用一个设备驱动。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static const struct platform_device_id atmelfb_dev_table[] = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123; &amp;quot;atmel_hlcdfb_base&amp;quot;, (kernel_ulong_t)&amp;amp;dev_data_base &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123; &amp;quot;atmel_hlcdfb_ovl&amp;quot;, (kernel_ulong_t)&amp;amp;dev_data_ovl &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;驱动注册 ：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static struct platform_driver atmel_hlcdfb_driver = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.remove		= __exit_p(atmel_hlcdfb_remove),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.suspend	= atmel_hlcdfb_suspend,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.resume		= atmel_hlcdfb_resume,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.driver		= &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.name	= &amp;quot;atmel_hlcdfb&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.owner	= THIS_MODULE,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	.id_table	= atmelfb_dev_table,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static int __init atmel_hlcdfb_init(void)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return platform_driver_probe(&amp;amp;atmel_hlcdfb_driver, atmel_hlcdfb_probe);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Android-HAL&quot;&gt;&lt;a href=&quot;#Android-HAL&quot; class=&quot;headerlink&quot; title=&quot;Android HAL&quot;&gt;&lt;/a&gt;Android HAL&lt;/h3&gt;&lt;p&gt;在 android 中使用了 双缓冲的 机制，所以在内存的分配是 &lt;/p&gt;
+&lt;p&gt;info-&amp;gt;screen_base = dma_alloc_writecombine(info-&amp;gt;device, info-&amp;gt;fix.smem_len,&lt;br&gt;                    (dma_addr_t *)&amp;amp;info-&amp;gt;fix.smem_start, GFP_KERNEL);&lt;br&gt;fix-&amp;gt;smem_start 是 LCD 的真实物理地址，我们使用的是 info-&amp;gt;screen_base ，操作的对象是一样的。&lt;br&gt;DMA 的自循环  ：&lt;br&gt;sinfo-&amp;gt;dma_desc = dma_alloc_writecombine(info-&amp;gt;device,&lt;br&gt;                    sinfo-&amp;gt;dev_data-&amp;gt;dma_desc_size,&lt;br&gt;                    &amp;amp;(sinfo-&amp;gt;dma_desc_phys), GFP_KERNEL);&lt;br&gt;分配 dam_desc 的地址是在 dma_desc_phys 处。update dma 的时候&lt;br&gt;desc-&amp;gt;next = sinfo-&amp;gt;dma_desc_phys;&lt;br&gt;这样将会指向自己。DMA 访问的是物理地址。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。&quot;&gt;&lt;a href=&quot;#基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。&quot; class=&quot;headerlink&quot; title=&quot;基于 atmel
+    
+    </summary>
+    
+      <category term="Android" scheme="http://ruiers.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://ruiers.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>上海出差</title>
+    <link href="http://ruiers.com/2012/02/19/out-of-office-to-shanghai/"/>
+    <id>http://ruiers.com/2012/02/19/out-of-office-to-shanghai/</id>
+    <published>2012-02-19T08:16:27.000Z</published>
+    <updated>2016-07-01T08:18:38.198Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;时间&quot;&gt;&lt;a href=&quot;#时间&quot; class=&quot;headerlink&quot; title=&quot;时间&quot;&gt;&lt;/a&gt;时间&lt;/h1&gt;&lt;p&gt;2012-02-19 到 2012-02-24 一周&lt;br&gt;上海徐汇区 Atmel。 地铁南京东路 2号口出站&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;时间&quot;&gt;&lt;a href=&quot;#时间&quot; class=&quot;headerlink&quot; title=&quot;时间&quot;&gt;&lt;/a&gt;时间&lt;/h1&gt;&lt;p&gt;2012-02-19 到 2012-02-24 一周&lt;br&gt;上海徐汇区 Atmel。 地铁南京东路 2号口出站&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="生活" scheme="http://ruiers.com/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="感悟" scheme="http://ruiers.com/tags/%E6%84%9F%E6%82%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>compile binder for linux</title>
+    <link href="http://ruiers.com/2012/02/08/compile-binder-for-linux/"/>
+    <id>http://ruiers.com/2012/02/08/compile-binder-for-linux/</id>
+    <published>2012-02-08T10:03:34.000Z</published>
+    <updated>2016-07-01T08:14:32.616Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;binder&quot;&gt;&lt;a href=&quot;#binder&quot; class=&quot;headerlink&quot; title=&quot;binder&quot;&gt;&lt;/a&gt;binder&lt;/h1&gt;&lt;p&gt;binder 是 Android 通信的基础驱动，可以直接集成在 Linux 内核调试。以下是 makefile&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1 ifneq ($(KERNELRELEASE),)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2     obj-m := binder.o&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3 else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4 KDIR := /lib/modules/$(shell uname -r)/build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5 PWD := $(shell pwd)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6 default:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7     $(MAKE) -C $(KDIR) M=$(PWD) modules&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8 endif&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;binder&quot;&gt;&lt;a href=&quot;#binder&quot; class=&quot;headerlink&quot; title=&quot;binder&quot;&gt;&lt;/a&gt;binder&lt;/h1&gt;&lt;p&gt;binder 是 Android 通信的基础驱动，可以直接集成在 Linux 内核调试。以下是 makefi
+    
+    </summary>
+    
+      <category term="Android" scheme="http://ruiers.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://ruiers.com/tags/Android/"/>
+    
+      <category term="Linux" scheme="http://ruiers.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>the girl is back</title>
+    <link href="http://ruiers.com/2012/02/06/the-girl-is-back/"/>
+    <id>http://ruiers.com/2012/02/06/the-girl-is-back/</id>
+    <published>2012-02-06T08:07:12.000Z</published>
+    <updated>2016-07-01T08:09:14.531Z</updated>
+    
+    <content type="html">&lt;p&gt;周四月姐来到，一起玩了一下干瞪眼，扑克牌游戏程姐教的。&lt;br&gt;最后很晚大概 1点 回到宿舍。周末陪着灿姐凯姐一起在光谷步行街玩了一下午，晚上吃个饭送走灿姐，和程姐等等玩了几局干瞪眼，吃了几个汤圆，明天元宵。&lt;br&gt;三飞依然一个人打打游戏。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;江城濛濛煙雨；&lt;br&gt;武大故人歸途；&lt;br&gt;宏博瀟瀟夜幕；&lt;br&gt;癡情男兒無數；&lt;br&gt;竟忍不住回顧；&lt;br&gt;伊人所在何處？&lt;/p&gt;
+&lt;p&gt;何处？何处？&lt;br&gt;雨伞不知归路。&lt;br&gt;膝下黄金无数，&lt;br&gt;只怪道险路阻。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;周四月姐来到，一起玩了一下干瞪眼，扑克牌游戏程姐教的。&lt;br&gt;最后很晚大概 1点 回到宿舍。周末陪着灿姐凯姐一起在光谷步行街玩了一下午，晚上吃个饭送走灿姐，和程姐等等玩了几局干瞪眼，吃了几个汤圆，明天元宵。&lt;br&gt;三飞依然一个人打打游戏。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;江城濛濛煙
+    
+    </summary>
+    
+      <category term="生活" scheme="http://ruiers.com/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="感悟 诗歌" scheme="http://ruiers.com/tags/%E6%84%9F%E6%82%9F-%E8%AF%97%E6%AD%8C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://ruiers.com/2010/06/30/hello-world/"/>
     <id>http://ruiers.com/2010/06/30/hello-world/</id>

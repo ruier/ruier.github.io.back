@@ -1,0 +1,710 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Maven East" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。目前
+
+内核 linux-2.6.39 
+android 2.3.5
+
+GUI 系统从下至上经过 ：
+Linux 内核驱动  —-&amp;gt;  Gralloc HAL  ——&amp;gt;   FrameBufferNativeWindow  ——-&amp;gt;  
+首先看看内核的驱动主要是 LCD 显示驱动和 overlay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android GUI system">
+<meta property="og:url" content="http://ruiers.com/2012/04/20/Android-GUI-system/index.html">
+<meta property="og:site_name" content="Maven East">
+<meta property="og:description" content="基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。目前
+
+内核 linux-2.6.39 
+android 2.3.5
+
+GUI 系统从下至上经过 ：
+Linux 内核驱动  —-&amp;gt;  Gralloc HAL  ——&amp;gt;   FrameBufferNativeWindow  ——-&amp;gt;  
+首先看看内核的驱动主要是 LCD 显示驱动和 overlay">
+<meta property="og:updated_time" content="2016-07-01T08:26:49.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android GUI system">
+<meta name="twitter:description" content="基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。目前
+
+内核 linux-2.6.39 
+android 2.3.5
+
+GUI 系统从下至上经过 ：
+Linux 内核驱动  —-&amp;gt;  Gralloc HAL  ——&amp;gt;   FrameBufferNativeWindow  ——-&amp;gt;  
+首先看看内核的驱动主要是 LCD 显示驱动和 overlay">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 13611630,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://ruiers.com/2012/04/20/Android-GUI-system/"/>
+
+  <title> Android GUI system | Maven East </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Maven East</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Maven -- 知识的积累</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android GUI system
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-04-20T16:21:43+08:00" content="2012-04-20">
+              2012-04-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/04/20/Android-GUI-system/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/20/Android-GUI-system/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。"><a href="#基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。" class="headerlink" title="基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。"></a>基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。</h2><p>目前</p>
+<ul>
+<li>内核 linux-2.6.39 </li>
+<li>android 2.3.5</li>
+</ul>
+<p>GUI 系统从下至上经过 ：</p>
+<p>Linux 内核驱动  —-&gt;  Gralloc HAL  ——&gt;   FrameBufferNativeWindow  ——-&gt;  </p>
+<p>首先看看内核的驱动主要是 LCD 显示驱动和 overlay 的基于 V4L 的 video 驱动。<br>9x5 的 LCD 控制器，支持 4 层显示， base/ovr1/HEO/HCC  。分别是 ：</p>
+<ul>
+<li>base 层，基本的显示层，我们一般的显示都是使用这一层，里面是唯一包含背光控制模块的一层。</li>
+<li>ovr1 层，overlay 层，数据可以直接往这上面送，它的数据显示在 base 层之上，支持一些 rotation 和色彩变换</li>
+<li>HEO 层，这一层的功能最多，支持 rotation 以及 scale 等，在驱动中使用 V4L 作成了 video 驱动。<br>HEO 和 OVR1 的显示位置可调节，可以设置寄存器支持谁显示在上面<br>HCC  层，这是一个硬件光标显示层，在 LCDC 显示在最上面。</li>
+</ul>
+<p>目前的 2.6.39 驱动将前面的 3 个都做了出来， HCC 用的较少，所以还没有支持。</p>
+<h3 id="Linux-驱动"><a href="#Linux-驱动" class="headerlink" title="Linux 驱动"></a>Linux 驱动</h3><p>下面具体来分析一下这几层的 Linux 驱动程序。</p>
+<p>首先在平台设备里面注册了我们需要的两个设备  <em>base</em> 和 <em>ovr1</em> 的设备。<br>at91sam9x5_devices.c<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_device at91_lcdc_base_device = &#123;</span><br><span class="line">	.name		= &quot;atmel_hlcdfb_base&quot;,</span><br><span class="line">	.id		= 0,</span><br><span class="line">	.dev		= &#123;</span><br><span class="line">				.dma_mask		= &amp;lcdc_dmamask,</span><br><span class="line">				.coherent_dma_mask	= DMA_BIT_MASK(32),</span><br><span class="line">				.platform_data		= &amp;lcdc_data,</span><br><span class="line">	&#125;,</span><br><span class="line">	.resource	= lcdc_base_resources,</span><br><span class="line">	.num_resources	= ARRAY_SIZE(lcdc_base_resources),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_device at91_lcdc_ovl_device = &#123;</span><br><span class="line">	.name		= &quot;atmel_hlcdfb_ovl&quot;,</span><br><span class="line">	.id		= 0,</span><br><span class="line">	.dev		= &#123;</span><br><span class="line">				.dma_mask		= &amp;lcdc_dmamask,</span><br><span class="line">				.coherent_dma_mask	= DMA_BIT_MASK(32),</span><br><span class="line">				.platform_data		= &amp;lcdc_data,</span><br><span class="line">	&#125;,</span><br><span class="line">	.resource	= lcdc_ovl1_resources,</span><br><span class="line">	.num_resources	= ARRAY_SIZE(lcdc_ovl1_resources),</span><br><span class="line">&#125;;</span><br><span class="line">void __init at91_add_device_lcdc(struct atmel_lcdfb_info *data)</span><br><span class="line">&#123;</span><br><span class="line">	platform_device_register(&amp;at91_lcdc_base_device);</span><br><span class="line">	platform_device_register(&amp;at91_lcdc_ovl_device);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注册了两个设备 atmel_hlcdfb_base 和 atmel_hlcdfb_ovl </p>
+<p>驱动程序  atmel_hlcdfb.c<br>将注册的两个设备放在 device tabel 中。他们公用一个设备驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static const struct platform_device_id atmelfb_dev_table[] = &#123;</span><br><span class="line">	&#123; &quot;atmel_hlcdfb_base&quot;, (kernel_ulong_t)&amp;dev_data_base &#125;,</span><br><span class="line">	&#123; &quot;atmel_hlcdfb_ovl&quot;, (kernel_ulong_t)&amp;dev_data_ovl &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>驱动注册 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_driver atmel_hlcdfb_driver = &#123;</span><br><span class="line">	.remove		= __exit_p(atmel_hlcdfb_remove),</span><br><span class="line">	.suspend	= atmel_hlcdfb_suspend,</span><br><span class="line">	.resume		= atmel_hlcdfb_resume,</span><br><span class="line"></span><br><span class="line">	.driver		= &#123;</span><br><span class="line">		.name	= &quot;atmel_hlcdfb&quot;,</span><br><span class="line">		.owner	= THIS_MODULE,</span><br><span class="line">	&#125;,</span><br><span class="line">	.id_table	= atmelfb_dev_table,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static int __init atmel_hlcdfb_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	return platform_driver_probe(&amp;atmel_hlcdfb_driver, atmel_hlcdfb_probe);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Android-HAL"><a href="#Android-HAL" class="headerlink" title="Android HAL"></a>Android HAL</h3><p>在 android 中使用了 双缓冲的 机制，所以在内存的分配是 </p>
+<p>info-&gt;screen_base = dma_alloc_writecombine(info-&gt;device, info-&gt;fix.smem_len,<br>                    (dma_addr_t *)&amp;info-&gt;fix.smem_start, GFP_KERNEL);<br>fix-&gt;smem_start 是 LCD 的真实物理地址，我们使用的是 info-&gt;screen_base ，操作的对象是一样的。<br>DMA 的自循环  ：<br>sinfo-&gt;dma_desc = dma_alloc_writecombine(info-&gt;device,<br>                    sinfo-&gt;dev_data-&gt;dma_desc_size,<br>                    &amp;(sinfo-&gt;dma_desc_phys), GFP_KERNEL);<br>分配 dam_desc 的地址是在 dma_desc_phys 处。update dma 的时候<br>desc-&gt;next = sinfo-&gt;dma_desc_phys;<br>这样将会指向自己。DMA 访问的是物理地址。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/02/19/out-of-office-to-shanghai/" rel="next" title="上海出差">
+                <i class="fa fa-chevron-left"></i> 上海出差
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/12/20/audio-and-display-issue/" rel="prev" title="audio and display issue">
+                audio and display issue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2012/04/20/Android-GUI-system/"
+     data-title="Android GUI system"
+     data-content=""
+     data-url="http://ruiers.com/2012/04/20/Android-GUI-system/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2012/04/20/Android-GUI-system/"
+           data-title="Android GUI system" data-url="http://ruiers.com/2012/04/20/Android-GUI-system/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://g.picphotos.baidu.com/album/s%3D1400%3Bq%3D90/sign=7636a5904034970a4373142ba5faeab9/3c6d55fbb2fb4316b3c717c521a4462308f7d3b1.jpg"
+               alt="Royce Chiang" />
+          <p class="site-author-name" itemprop="name">Royce Chiang</p>
+          <p class="site-description motion-element" itemprop="description">世事洞明皆学问，人情练达即文章</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。"><span class="nav-number">1.</span> <span class="nav-text">基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-驱动"><span class="nav-number">1.1.</span> <span class="nav-text">Linux 驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-HAL"><span class="nav-number">1.2.</span> <span class="nav-text">Android HAL</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Royce Chiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ruiers"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

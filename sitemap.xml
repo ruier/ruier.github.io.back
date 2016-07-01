@@ -2,6 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ruiers.com/2013/02/13/house-finding/</loc>
+    
+    <lastmod>2016-07-01T08:44:34.070Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/12/20/cross-compile-alsa/</loc>
+    
+    <lastmod>2016-07-01T08:42:33.679Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/12/20/audio-and-display-issue/</loc>
+    
+    <lastmod>2016-07-01T08:35:53.708Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/04/20/Android-GUI-system/</loc>
+    
+    <lastmod>2016-07-01T08:26:49.315Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/02/19/out-of-office-to-shanghai/</loc>
+    
+    <lastmod>2016-07-01T08:18:38.198Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/02/08/compile-binder-for-linux/</loc>
+    
+    <lastmod>2016-07-01T08:14:32.616Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ruiers.com/2012/02/06/the-girl-is-back/</loc>
+    
+    <lastmod>2016-07-01T08:09:14.531Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ruiers.com/about/index.html</loc>
     
     <lastmod>2016-07-01T06:05:12.754Z</lastmod>
