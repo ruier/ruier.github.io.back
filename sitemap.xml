@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ruiers.com/about/index.html</loc>
+    
+    <lastmod>2016-07-01T06:05:12.754Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ruiers.com/2016/07/01/two-ramdisk-in-linux/</loc>
     
     <lastmod>2016-07-01T03:08:53.652Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://ruiers.com/categories/index.html</loc>
     
     <lastmod>2016-06-29T03:18:07.491Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ruiers.com/about/index.html</loc>
-    
-    <lastmod>2016-06-29T03:12:37.159Z</lastmod>
     
   </url>
   
