@@ -141,7 +141,7 @@ social_icons:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-#avatar:
+avatar: http://g.picphotos.baidu.com/album/s%3D1400%3Bq%3D90/sign=7636a5904034970a4373142ba5faeab9/3c6d55fbb2fb4316b3c717c521a4462308f7d3b1.jpg
 
 
 # Table Of Contents in the Sidebar
