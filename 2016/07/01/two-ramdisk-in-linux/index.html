@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux ramdisk," />
 
 
 
@@ -86,15 +86,25 @@
 
 
 
-<meta name="description" content="世事洞明皆学问，人情练达即文章">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maven East">
-<meta property="og:url" content="http://ruiers.com/index.html">
+<meta name="description" content="使用 ramdisk 启动 Linux 内核Buildroot 的 ramdisk 镜像支持
+linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。
+
+1234567891011121314151617BR2_TARGET_ROOTFS_CPIO_UIMAGE:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="two ramdisk in linux">
+<meta property="og:url" content="http://ruiers.com/2016/07/01/two-ramdisk-in-linux/index.html">
 <meta property="og:site_name" content="Maven East">
-<meta property="og:description" content="世事洞明皆学问，人情练达即文章">
+<meta property="og:description" content="使用 ramdisk 启动 Linux 内核Buildroot 的 ramdisk 镜像支持
+linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。
+
+1234567891011121314151617BR2_TARGET_ROOTFS_CPIO_UIMAGE:">
+<meta property="og:updated_time" content="2016-07-01T03:03:18.126Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maven East">
-<meta name="twitter:description" content="世事洞明皆学问，人情练达即文章">
+<meta name="twitter:title" content="two ramdisk in linux">
+<meta name="twitter:description" content="使用 ramdisk 启动 Linux 内核Buildroot 的 ramdisk 镜像支持
+linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。
+
+1234567891011121314151617BR2_TARGET_ROOTFS_CPIO_UIMAGE:">
 
 
 
@@ -115,9 +125,9 @@
 
 
 
-  <link rel="canonical" href="http://ruiers.com/"/>
+  <link rel="canonical" href="http://ruiers.com/2016/07/01/two-ramdisk-in-linux/"/>
 
-  <title> Maven East </title>
+  <title> two ramdisk in linux | Maven East </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -138,9 +148,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -259,10 +267,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/07/01/two-ramdisk-in-linux/" itemprop="url">
-                  two ramdisk in linux
-                </a>
+                two ramdisk in linux
               
             
           </h1>
@@ -321,9 +326,7 @@
       
 
       
-        
-          
-            <h1 id="使用-ramdisk-启动-Linux-内核"><a href="#使用-ramdisk-启动-Linux-内核" class="headerlink" title="使用 ramdisk 启动 Linux 内核"></a>使用 ramdisk 启动 Linux 内核</h1><h2 id="Buildroot-的-ramdisk-镜像支持"><a href="#Buildroot-的-ramdisk-镜像支持" class="headerlink" title="Buildroot 的 ramdisk 镜像支持"></a>Buildroot 的 ramdisk 镜像支持</h2><blockquote>
+        <h1 id="使用-ramdisk-启动-Linux-内核"><a href="#使用-ramdisk-启动-Linux-内核" class="headerlink" title="使用 ramdisk 启动 Linux 内核"></a>使用 ramdisk 启动 Linux 内核</h1><h2 id="Buildroot-的-ramdisk-镜像支持"><a href="#Buildroot-的-ramdisk-镜像支持" class="headerlink" title="Buildroot 的 ramdisk 镜像支持"></a>Buildroot 的 ramdisk 镜像支持</h2><blockquote>
 <p>linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BR2_TARGET_ROOTFS_CPIO_UIMAGE:                                                                                              ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ Add a U-Boot header to the cpio root filesystem. This allows                                                                ³  </span><br><span class="line"> ³ the initramfs to be loaded with the bootm command in U-Boot.                                                                ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ The U-Boot image will be called rootfs.cpio.uboot                                                                           ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ Symbol: BR2_TARGET_ROOTFS_CPIO_UIMAGE [=y]                                                                                  ³  </span><br><span class="line"> ³ Type  : boolean                                                                                                             ³  </span><br><span class="line"> ³ Prompt: Create U-Boot image of the root filesystem                                                                          ³  </span><br><span class="line"> ³   Location:                                                                                                                 ³  </span><br><span class="line"> ³     -&gt; Filesystem images                                                                                                    ³  </span><br><span class="line"> ³       -&gt; cpio the root filesystem (for use as an initial RAM filesystem) (BR2_TARGET_ROOTFS_CPIO [=y])                      ³  </span><br><span class="line"> ³   Defined at fs/cpio/Config.in:51                                                                                           ³  </span><br><span class="line"> ³   Depends on: BR2_TARGET_ROOTFS_CPIO [=y]                                                                                   ³  </span><br><span class="line"> ³   Selects: BR2_PACKAGE_HOST_UBOOT_TOOLS [=y]                                                                                ³  </span><br><span class="line"> ³</span><br></pre></td></tr></table></figure>
@@ -338,157 +341,58 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># cat /proc/version </span><br><span class="line">Linux version 4.1.15-01642-g46abb4f-dirty (jiangxd@Embest-tech) (gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) ) #32 SMP PREEMPT Thu Jun 30 11:21:25 CST 2016</span><br><span class="line"># ls /</span><br><span class="line">bin                    init.trace.rc          sbin</span><br><span class="line">charger                init.usb.rc            seapp_contexts</span><br><span class="line">data                   init.zygote32.rc       selinux_version</span><br><span class="line">default.prop           lib                    sepolicy</span><br><span class="line">dev                    lib32                  service_contexts</span><br><span class="line">etc                    linuxrc                sys</span><br><span class="line">file_contexts          media                  system</span><br><span class="line">filelist               mnt                    tmp</span><br><span class="line">fstab.freescale        opt                    ueventd.freescale.rc</span><br><span class="line">init                   proc                   ueventd.rc</span><br><span class="line">init.environ.rc        property_contexts      usr</span><br><span class="line">init.freescale.rc      res                    var</span><br><span class="line">init.freescale.usb.rc  root</span><br><span class="line">init.rc                run</span><br></pre></td></tr></table></figure>
 <p>至于为何合并，以及如何合并，暂时没有研究。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2010/06/30/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2010-06-30T10:35:28+08:00" content="2010-06-30">
-              2010-06-30
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/linux-ramdisk/" rel="tag">#linux ramdisk</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/06/30/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -496,6 +400,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -515,8 +423,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -573,6 +490,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-ramdisk-启动-Linux-内核"><span class="nav-number">1.</span> <span class="nav-text">使用 ramdisk 启动 Linux 内核</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buildroot-的-ramdisk-镜像支持"><span class="nav-number">1.1.</span> <span class="nav-text">Buildroot 的 ramdisk 镜像支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u-boot-启动-ramdisk-的设置"><span class="nav-number">1.2.</span> <span class="nav-text">u-boot 启动 ramdisk 的设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-内核本身对-ramdisk-的支持"><span class="nav-number">1.3.</span> <span class="nav-text">Linux 内核本身对 ramdisk 的支持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个-ramdisk-同时加载"><span class="nav-number">2.</span> <span class="nav-text">两个 ramdisk 同时加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buildroot-的ramdisk"><span class="nav-number">2.1.</span> <span class="nav-text">Buildroot 的ramdisk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核的-ramdisk"><span class="nav-number">2.2.</span> <span class="nav-text">内核的 ramdisk</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -676,6 +604,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
