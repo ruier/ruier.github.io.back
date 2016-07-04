@@ -269,8 +269,8 @@
             
               
                 
-                <a class="post-title-link" href="/2013/02/13/house-finding/" itemprop="url">
-                  买房子
+                <a class="post-title-link" href="/2016/07/01/two-ramdisk-in-linux/" itemprop="url">
+                  two ramdisk in linux
                 </a>
               
             
@@ -283,8 +283,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-13T16:43:39+08:00" content="2013-02-13">
-              2013-02-13
+            <time itemprop="dateCreated" datetime="2016-07-01T10:42:05+08:00" content="2016-07-01">
+              2016-07-01
             </time>
           </span>
 
@@ -297,8 +297,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -313,8 +313,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/02/13/house-finding/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/13/house-finding/" itemprop="commentsCount"></span>
+                <a href="/2016/07/01/two-ramdisk-in-linux/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/two-ramdisk-in-linux/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,13 +339,20 @@
       
         
           
-            <p>海天大厦    江夏大花岭大学城<br>金地中心<br>佳源花都<br>蓝晶国际</p>
-<p>武汉这座城市，现在到处开挖，最得人心还是地铁沿线，那房价也是水涨船高。无奈预算有限，只能在性价比当中找。<br>有几点重点考虑：</p>
-<ol>
-<li>离光谷不要太远</li>
-<li>最好能在软件园附近</li>
-<li>能有地铁<br>最后还是选择了华师一附中旁边的地块。</li>
-</ol>
+            <h1 id="使用-ramdisk-启动-Linux-内核"><a href="#使用-ramdisk-启动-Linux-内核" class="headerlink" title="使用 ramdisk 启动 Linux 内核"></a>使用 ramdisk 启动 Linux 内核</h1><h2 id="Buildroot-的-ramdisk-镜像支持"><a href="#Buildroot-的-ramdisk-镜像支持" class="headerlink" title="Buildroot 的 ramdisk 镜像支持"></a>Buildroot 的 ramdisk 镜像支持</h2><blockquote>
+<p>linux 支持从 ramdisk 启动，比如在 buildroot 中可以配置生成 ramdisk 供内核加载。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BR2_TARGET_ROOTFS_CPIO_UIMAGE:                                                                                              ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ Add a U-Boot header to the cpio root filesystem. This allows                                                                ³  </span><br><span class="line"> ³ the initramfs to be loaded with the bootm command in U-Boot.                                                                ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ The U-Boot image will be called rootfs.cpio.uboot                                                                           ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ Symbol: BR2_TARGET_ROOTFS_CPIO_UIMAGE [=y]                                                                                  ³  </span><br><span class="line"> ³ Type  : boolean                                                                                                             ³  </span><br><span class="line"> ³ Prompt: Create U-Boot image of the root filesystem                                                                          ³  </span><br><span class="line"> ³   Location:                                                                                                                 ³  </span><br><span class="line"> ³     -&gt; Filesystem images                                                                                                    ³  </span><br><span class="line"> ³       -&gt; cpio the root filesystem (for use as an initial RAM filesystem) (BR2_TARGET_ROOTFS_CPIO [=y])                      ³  </span><br><span class="line"> ³   Defined at fs/cpio/Config.in:51                                                                                           ³  </span><br><span class="line"> ³   Depends on: BR2_TARGET_ROOTFS_CPIO [=y]                                                                                   ³  </span><br><span class="line"> ³   Selects: BR2_PACKAGE_HOST_UBOOT_TOOLS [=y]                                                                                ³  </span><br><span class="line"> ³</span><br></pre></td></tr></table></figure>
+<h2 id="u-boot-启动-ramdisk-的设置"><a href="#u-boot-启动-ramdisk-的设置" class="headerlink" title="u-boot 启动 ramdisk 的设置"></a>u-boot 启动 ramdisk 的设置</h2><p>然后在 u-boot 中读取 ramdisk 加载并运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">=&gt; printenv bootcmd </span><br><span class="line">bootcmd=fatload mmc 0 0x80800000 zImage;fatload mmc 0 0x83000000 imx7d-warp7-mipi-dsi.dtb;fatload mmc 0 0x88000000 rootfs.cpio.uboot;run initaudio;;bootz 0x80800000 0x88000000 0x83000000</span><br><span class="line">=&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Linux-内核本身对-ramdisk-的支持"><a href="#Linux-内核本身对-ramdisk-的支持" class="headerlink" title="Linux 内核本身对 ramdisk 的支持"></a>Linux 内核本身对 ramdisk 的支持</h2><p>Linux 内核自己也提供了对 ramdisk 的支持，而且无需手动加载，在编译时就已经包含在内核镜像里面。ramdisk 会随着内核加载而加载进入系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_INITRAMFS_SOURCE:                                                                                                    ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ This can be either a single cpio archive with a .cpio suffix or a                                                           ³  </span><br><span class="line"> ³ space-separated list of directories and files for building the                                                              ³  </span><br><span class="line"> ³ initramfs image.  A cpio archive should contain a filesystem archive                                                        ³  </span><br><span class="line"> ³ to be used as an initramfs image.  Directories should contain a                                                             ³  </span><br><span class="line"> ³ filesystem layout to be included in the initramfs image.  Files                                                             ³  </span><br><span class="line"> ³ should contain entries according to the format described by the                                                             ³  </span><br><span class="line"> ³ &quot;usr/gen_init_cpio&quot; program in the kernel tree.                                                                             ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ When multiple directories and files are specified then the                                                                  ³  </span><br><span class="line"> ³ initramfs image will be the aggregate of all of them.                                                                       ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ See &lt;file:Documentation/early-userspace/README&gt; for more details.                                                           ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ If you are not sure, leave it blank.                                                                                        ³  </span><br><span class="line"> ³                                                                                                                             ³  </span><br><span class="line"> ³ Symbol: INITRAMFS_SOURCE [=root]                                                                                            ³  </span><br><span class="line"> ³ Type  : string                                                                                                              ³  </span><br><span class="line"> ³ Prompt: Initramfs source file(s)</span><br></pre></td></tr></table></figure>
+<h1 id="两个-ramdisk-同时加载"><a href="#两个-ramdisk-同时加载" class="headerlink" title="两个 ramdisk 同时加载"></a>两个 ramdisk 同时加载</h1><p>通过上面的描述，我们知道有两种方式加载 ramdisk，而且两者可以同时被加载进入内核文件系统。那么实际情况是两种ramdisk加载后会发生什么？</p>
+<h2 id="Buildroot-的ramdisk"><a href="#Buildroot-的ramdisk" class="headerlink" title="Buildroot 的ramdisk"></a>Buildroot 的ramdisk</h2><p>按照以上描述，编译 Buildroot 并生成 ramdisk, buildroot 中的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls ~/workspace/github/buildroot/output/target/</span><br><span class="line">THIS_IS_NOT_YOUR_ROOT_FILESYSTEM  dev  filelist  lib    linuxrc  mnt  proc  run   sys  usr</span><br><span class="line">bin                               etc  init      lib32  media    opt  root  sbin  tmp  var</span><br></pre></td></tr></table></figure></p>
+<h2 id="内核的-ramdisk"><a href="#内核的-ramdisk" class="headerlink" title="内核的 ramdisk"></a>内核的 ramdisk</h2><p>同时在内核中编译ramdisk， 内核文件系统的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls android/root/</span><br><span class="line">charger       file_contexts    init.freescale.rc      init.usb.rc        res              sepolicy          ueventd.freescale.rc</span><br><span class="line">data          fstab.freescale  init.freescale.usb.rc  init.zygote32.rc   sbin             service_contexts  ueventd.rc</span><br><span class="line">default.prop  init             init.rc                proc               seapp_contexts   sys</span><br><span class="line">dev           init.environ.rc  init.trace.rc          property_contexts  selinux_version  system</span><br></pre></td></tr></table></figure></p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>系统启动之后：<br>两个ramdisk会合并在一起，我们能够在根文件系统里面同时访问这两个ramdisk的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># cat /proc/version </span><br><span class="line">Linux version 4.1.15-01642-g46abb4f-dirty (jiangxd@Embest-tech) (gcc version 4.8.4 (Ubuntu/Linaro 4.8.4-2ubuntu1~14.04.1) ) #32 SMP PREEMPT Thu Jun 30 11:21:25 CST 2016</span><br><span class="line"># ls /</span><br><span class="line">bin                    init.trace.rc          sbin</span><br><span class="line">charger                init.usb.rc            seapp_contexts</span><br><span class="line">data                   init.zygote32.rc       selinux_version</span><br><span class="line">default.prop           lib                    sepolicy</span><br><span class="line">dev                    lib32                  service_contexts</span><br><span class="line">etc                    linuxrc                sys</span><br><span class="line">file_contexts          media                  system</span><br><span class="line">filelist               mnt                    tmp</span><br><span class="line">fstab.freescale        opt                    ueventd.freescale.rc</span><br><span class="line">init                   proc                   ueventd.rc</span><br><span class="line">init.environ.rc        property_contexts      usr</span><br><span class="line">init.freescale.rc      res                    var</span><br><span class="line">init.freescale.usb.rc  root</span><br><span class="line">init.rc                run</span><br></pre></td></tr></table></figure>
+<p>至于为何合并，以及如何合并，暂时没有研究。</p>
 
           
         
@@ -378,7 +385,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -419,7 +426,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -427,7 +434,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -436,7 +443,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

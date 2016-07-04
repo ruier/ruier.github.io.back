@@ -269,8 +269,8 @@
             
               
                 
-                <a class="post-title-link" href="/2012/02/06/the-girl-is-back/" itemprop="url">
-                  同学聚会
+                <a class="post-title-link" href="/2012/02/08/compile-binder-for-linux/" itemprop="url">
+                  compile binder for linux
                 </a>
               
             
@@ -283,8 +283,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-02-06T16:07:12+08:00" content="2012-02-06">
-              2012-02-06
+            <time itemprop="dateCreated" datetime="2012-02-08T18:03:34+08:00" content="2012-02-08">
+              2012-02-08
             </time>
           </span>
 
@@ -297,8 +297,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -313,8 +313,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/02/06/the-girl-is-back/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/02/06/the-girl-is-back/" itemprop="commentsCount"></span>
+                <a href="/2012/02/08/compile-binder-for-linux/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/02/08/compile-binder-for-linux/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,9 +339,7 @@
       
         
           
-            <p>周四月姐来到，一起玩了一下干瞪眼，扑克牌游戏程姐教的。<br>最后很晚大概 1点 回到宿舍。周末陪着灿姐凯姐一起在光谷步行街玩了一下午，晚上吃个饭送走灿姐，和程姐等等玩了几局干瞪眼，吃了几个汤圆，明天元宵。<br>三飞依然一个人打打游戏。</p>
-<h2 id="毕业将近两年，各自忙着自己的工作，忙着自己的生活，对同学的联系日益减少。四年的大学时光，本来在一起的时候交流也是不太多，毕业了之后，许久不见，甚是想念。所有的感情也都在那些不经意的小动作里。我们-80-后这一代，太不擅长表达自己的情感。"><a href="#毕业将近两年，各自忙着自己的工作，忙着自己的生活，对同学的联系日益减少。四年的大学时光，本来在一起的时候交流也是不太多，毕业了之后，许久不见，甚是想念。所有的感情也都在那些不经意的小动作里。我们-80-后这一代，太不擅长表达自己的情感。" class="headerlink" title="毕业将近两年，各自忙着自己的工作，忙着自己的生活，对同学的联系日益减少。四年的大学时光，本来在一起的时候交流也是不太多，毕业了之后，许久不见，甚是想念。所有的感情也都在那些不经意的小动作里。我们 80 后这一代，太不擅长表达自己的情感。"></a>毕业将近两年，各自忙着自己的工作，忙着自己的生活，对同学的联系日益减少。四年的大学时光，本来在一起的时候交流也是不太多，毕业了之后，许久不见，甚是想念。所有的感情也都在那些不经意的小动作里。我们 80 后这一代，太不擅长表达自己的情感。</h2><p>江城濛濛煙雨；<br>武大故人歸途；<br>宏博瀟瀟夜幕；<br>癡情男兒無數；<br>竟忍不住回顧；<br>伊人所在何處？</p>
-<p>何处？何处？<br>雨伞不知归路。<br>膝下黄金无数，<br>只怪道险路阻。</p>
+            <h1 id="binder"><a href="#binder" class="headerlink" title="binder"></a>binder</h1><p>binder 是 Android 通信的基础驱动，可以直接集成在 Linux 内核调试。以下是 makefile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 ifneq ($(KERNELRELEASE),)</span><br><span class="line">2     obj-m := binder.o</span><br><span class="line">3 else</span><br><span class="line">4 KDIR := /lib/modules/$(shell uname -r)/build</span><br><span class="line">5 PWD := $(shell pwd)</span><br><span class="line">6 default:</span><br><span class="line">7     $(MAKE) -C $(KDIR) M=$(PWD) modules</span><br><span class="line">8 endif</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -374,7 +372,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -415,7 +413,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -423,7 +421,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -432,7 +430,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

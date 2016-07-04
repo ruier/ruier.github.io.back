@@ -269,8 +269,8 @@
             
               
                 
-                <a class="post-title-link" href="/2012/12/20/cross-compile-alsa/" itemprop="url">
-                  交叉编译 ALSA
+                <a class="post-title-link" href="/2013/02/13/house-finding/" itemprop="url">
+                  买房子
                 </a>
               
             
@@ -283,8 +283,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-12-20T16:35:13+08:00" content="2012-12-20">
-              2012-12-20
+            <time itemprop="dateCreated" datetime="2013-02-13T16:43:39+08:00" content="2013-02-13">
+              2013-02-13
             </time>
           </span>
 
@@ -297,8 +297,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/生活/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
                   </a>
                 </span>
 
@@ -313,8 +313,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/12/20/cross-compile-alsa/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/12/20/cross-compile-alsa/" itemprop="commentsCount"></span>
+                <a href="/2013/02/13/house-finding/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/13/house-finding/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,17 +339,13 @@
       
         
           
-            <h1 id="交叉编译-ALSA"><a href="#交叉编译-ALSA" class="headerlink" title="交叉编译 ALSA"></a>交叉编译 ALSA</h1><pre><code>问题描述:在需要移植 android 录音问题的时候发现 buildroot 下没有 arecord
-</code></pre><p>解决方法;自己编译,使用交叉编译链</p>
-<p>系统已经有 交叉编译工具 :<br>ls /usr/local/arm-2007q1/<br>arm-none-linux-gnueabi/ include/                libexec/<br>bin/                    lib/                    share/<br>需要将 bin 加入到 PATH 然后 ./configure 才能找到交叉编译工具<br>checking for arm-none-linux-gnueabi-strip… arm-none-linux-gnueabi-strip<br>checking for arm-none-linux-gnueabi-gcc… arm-none-linux-gnueabi-gcc<br>checking for C compiler default output… a.out<br>checking whether the C compiler works… yes<br>checking whether we are cross compiling… yes</p>
-<p>否则找不到就使用系统默认的 gcc 工具编译了</p>
-<hr>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="http://www.alsa-project.org/main/index.php/Download" target="_blank" rel="external">http://www.alsa-project.org/main/index.php/Download</a></p>
-<h2 id="交叉编译-alsa-lib"><a href="#交叉编译-alsa-lib" class="headerlink" title="交叉编译 alsa-lib"></a>交叉编译 alsa-lib</h2><p>./configure –host=arm-none-linux-gnueabi –prefix=/usr/share/arm-alsa<br>make &amp; make install                                                                                        </p>
-<h2 id="交叉编译-alsa-utils"><a href="#交叉编译-alsa-utils" class="headerlink" title="交叉编译 alsa-utils"></a>交叉编译 alsa-utils</h2><p>./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –without-alsamixer // avoid the ncurses lib </p>
-<p>  使用<br>./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –with-curses=/usr/lib32/libcurses.so –includedir=/usr/include/ –disable-alsamixer<br>   ref:<a href="http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html" target="_blank" rel="external">http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html</a><br>make<br>Copy lib to target board<br>cp -avr /usr/share/arm-alsa {$rootfs}/usr/share/arm-alsa</p>
-<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>export ALSA_CONFIG_PATH=/usr/share/arm-alsa/share/alsa/alsa.conf<br>未添加环境变量前出现的错误：<br>~ # ./aplay<br>ALSA lib conf.c:2827:(snd_config_hook_load) cannot access file /usr/share/arm-alsa/share/alsa/cards/aliases.conf<br>ALSA lib pcm.c:1959:(snd_pcm_open_conf) Invalid type for PCM default definition (id: default, value: cards.pcm.default)<br>aplay: main:533: audio open error: Invalid argument<br>~ # ./aplay<br>ALSA lib pcm.c:2090:(snd_pcm_open_noupdate) Unknown PCM default<br>aplay: main:533: audio open error: No such file or directory</p>
-<h2 id="交叉编译其他程序："><a href="#交叉编译其他程序：" class="headerlink" title="交叉编译其他程序："></a>交叉编译其他程序：</h2><p>Add included file in program: #include <alsa asoundlib.h=""><br>~# arm-none-linux-gnueabi-gcc -lasound -L/usr/share/arm-alsa/lib/ -I/usr/share/arm-alsa/include/ -o test my_test.c</alsa></p>
+            <p>海天大厦    江夏大花岭大学城<br>金地中心<br>佳源花都<br>蓝晶国际</p>
+<p>武汉这座城市，现在到处开挖，最得人心还是地铁沿线，那房价也是水涨船高。无奈预算有限，只能在性价比当中找。<br>有几点重点考虑：</p>
+<ol>
+<li>离光谷不要太远</li>
+<li>最好能在软件园附近</li>
+<li>能有地铁<br>最后还是选择了华师一附中旁边的地块。</li>
+</ol>
 
           
         
@@ -382,7 +378,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -423,7 +419,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -431,7 +427,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -440,7 +436,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

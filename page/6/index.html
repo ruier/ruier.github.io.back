@@ -269,8 +269,8 @@
             
               
                 
-                <a class="post-title-link" href="/2012/02/19/out-of-office-to-shanghai/" itemprop="url">
-                  上海出差
+                <a class="post-title-link" href="/2012/04/20/Android-GUI-system/" itemprop="url">
+                  Android GUI system
                 </a>
               
             
@@ -283,8 +283,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-02-19T16:16:27+08:00" content="2012-02-19">
-              2012-02-19
+            <time itemprop="dateCreated" datetime="2012-04-20T16:21:43+08:00" content="2012-04-20">
+              2012-04-20
             </time>
           </span>
 
@@ -297,8 +297,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -313,8 +313,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/02/19/out-of-office-to-shanghai/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/02/19/out-of-office-to-shanghai/" itemprop="commentsCount"></span>
+                <a href="/2012/04/20/Android-GUI-system/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/20/Android-GUI-system/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,12 +339,28 @@
       
         
           
-            <h1 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h1><p>2012-02-19 到 2012-02-24 一周<br>上海徐汇区 Atmel。 地铁南京东路 2号口出站</p>
-<h2 id="上海"><a href="#上海" class="headerlink" title="上海"></a>上海</h2><p>上海是一个快节奏的城市，上下班可以看到人们匆匆的步伐。给我印象最深的是地铁电梯是那样的井然有序。人们都是站在靠右的一边，然后把左边空出来，以便那些赶时间的人从左边通过。这样的景象在武汉会显得不可思议。人们不会愿意去为了别人而空出那么大块空间。<br>    国际化大都市的魅力就在于此吧，人类的发展不是看人类取得多少高科技，获得多少财富，而是看他们的思想和素质发展到了哪一层境界。</p>
-<h2 id="Atmel"><a href="#Atmel" class="headerlink" title="Atmel"></a>Atmel</h2><p>Atmel 是一家半导体公司，上海的分部占据了徐汇办公楼的一层。前台妹妹很漂亮，有很多老外在这里工作。整个科技氛围很浓的感觉，但是我并不留恋这种高级豪华的办公环境。也许是目前还无法自由地这种环境工作的原因吧。</p>
-<h2 id="南京路步行街"><a href="#南京路步行街" class="headerlink" title="南京路步行街"></a>南京路步行街</h2><p>总算是一个标志性的所在，然而大武汉的光谷步行街号称亚洲第一长，相比之下，光谷还是low了好多。我只是在这里闲逛了一会儿，嗯，没有购物的意愿，为啥，这个！都懂的啦。。。</p>
-<h2 id="田子坊"><a href="#田子坊" class="headerlink" title="田子坊"></a>田子坊</h2><p>印象深刻的景点，类似武汉的昙华林，具体就是各种文艺小店啦，没有购物欲望的人来说，看看而已啦。</p>
-<p>上海有那么几个同学，但是行程安排紧凑，周一到周五在Atmel按照正常上班事件讲解ppt。周末就两天，陪着领导逛逛常见的外滩，和上面提到的一些地方，然后就是打包回家的。</p>
+            <h2 id="基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。"><a href="#基于-atmel-的-sam9x5-系列的开发板-Android-GUI-系统总结。" class="headerlink" title="基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。"></a>基于 atmel 的 sam9x5 系列的开发板 Android GUI 系统总结。</h2><p>目前</p>
+<ul>
+<li>内核 linux-2.6.39 </li>
+<li>android 2.3.5</li>
+</ul>
+<p>GUI 系统从下至上经过 ：</p>
+<p>Linux 内核驱动  —-&gt;  Gralloc HAL  ——&gt;   FrameBufferNativeWindow  ——-&gt;  </p>
+<p>首先看看内核的驱动主要是 LCD 显示驱动和 overlay 的基于 V4L 的 video 驱动。<br>9x5 的 LCD 控制器，支持 4 层显示， base/ovr1/HEO/HCC  。分别是 ：</p>
+<ul>
+<li>base 层，基本的显示层，我们一般的显示都是使用这一层，里面是唯一包含背光控制模块的一层。</li>
+<li>ovr1 层，overlay 层，数据可以直接往这上面送，它的数据显示在 base 层之上，支持一些 rotation 和色彩变换</li>
+<li>HEO 层，这一层的功能最多，支持 rotation 以及 scale 等，在驱动中使用 V4L 作成了 video 驱动。<br>HEO 和 OVR1 的显示位置可调节，可以设置寄存器支持谁显示在上面<br>HCC  层，这是一个硬件光标显示层，在 LCDC 显示在最上面。</li>
+</ul>
+<p>目前的 2.6.39 驱动将前面的 3 个都做了出来， HCC 用的较少，所以还没有支持。</p>
+<h3 id="Linux-驱动"><a href="#Linux-驱动" class="headerlink" title="Linux 驱动"></a>Linux 驱动</h3><p>下面具体来分析一下这几层的 Linux 驱动程序。</p>
+<p>首先在平台设备里面注册了我们需要的两个设备  <em>base</em> 和 <em>ovr1</em> 的设备。<br>at91sam9x5_devices.c<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_device at91_lcdc_base_device = &#123;</span><br><span class="line">	.name		= &quot;atmel_hlcdfb_base&quot;,</span><br><span class="line">	.id		= 0,</span><br><span class="line">	.dev		= &#123;</span><br><span class="line">				.dma_mask		= &amp;lcdc_dmamask,</span><br><span class="line">				.coherent_dma_mask	= DMA_BIT_MASK(32),</span><br><span class="line">				.platform_data		= &amp;lcdc_data,</span><br><span class="line">	&#125;,</span><br><span class="line">	.resource	= lcdc_base_resources,</span><br><span class="line">	.num_resources	= ARRAY_SIZE(lcdc_base_resources),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_device at91_lcdc_ovl_device = &#123;</span><br><span class="line">	.name		= &quot;atmel_hlcdfb_ovl&quot;,</span><br><span class="line">	.id		= 0,</span><br><span class="line">	.dev		= &#123;</span><br><span class="line">				.dma_mask		= &amp;lcdc_dmamask,</span><br><span class="line">				.coherent_dma_mask	= DMA_BIT_MASK(32),</span><br><span class="line">				.platform_data		= &amp;lcdc_data,</span><br><span class="line">	&#125;,</span><br><span class="line">	.resource	= lcdc_ovl1_resources,</span><br><span class="line">	.num_resources	= ARRAY_SIZE(lcdc_ovl1_resources),</span><br><span class="line">&#125;;</span><br><span class="line">void __init at91_add_device_lcdc(struct atmel_lcdfb_info *data)</span><br><span class="line">&#123;</span><br><span class="line">	platform_device_register(&amp;at91_lcdc_base_device);</span><br><span class="line">	platform_device_register(&amp;at91_lcdc_ovl_device);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注册了两个设备 atmel_hlcdfb_base 和 atmel_hlcdfb_ovl </p>
+<p>驱动程序  atmel_hlcdfb.c<br>将注册的两个设备放在 device tabel 中。他们公用一个设备驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static const struct platform_device_id atmelfb_dev_table[] = &#123;</span><br><span class="line">	&#123; &quot;atmel_hlcdfb_base&quot;, (kernel_ulong_t)&amp;dev_data_base &#125;,</span><br><span class="line">	&#123; &quot;atmel_hlcdfb_ovl&quot;, (kernel_ulong_t)&amp;dev_data_ovl &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>驱动注册 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static struct platform_driver atmel_hlcdfb_driver = &#123;</span><br><span class="line">	.remove		= __exit_p(atmel_hlcdfb_remove),</span><br><span class="line">	.suspend	= atmel_hlcdfb_suspend,</span><br><span class="line">	.resume		= atmel_hlcdfb_resume,</span><br><span class="line"></span><br><span class="line">	.driver		= &#123;</span><br><span class="line">		.name	= &quot;atmel_hlcdfb&quot;,</span><br><span class="line">		.owner	= THIS_MODULE,</span><br><span class="line">	&#125;,</span><br><span class="line">	.id_table	= atmelfb_dev_table,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static int __init atmel_hlcdfb_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	return platform_driver_probe(&amp;atmel_hlcdfb_driver, atmel_hlcdfb_probe);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Android-HAL"><a href="#Android-HAL" class="headerlink" title="Android HAL"></a>Android HAL</h3><p>在 android 中使用了 双缓冲的 机制，所以在内存的分配是 </p>
+<p>info-&gt;screen_base = dma_alloc_writecombine(info-&gt;device, info-&gt;fix.smem_len,<br>                    (dma_addr_t *)&amp;info-&gt;fix.smem_start, GFP_KERNEL);<br>fix-&gt;smem_start 是 LCD 的真实物理地址，我们使用的是 info-&gt;screen_base ，操作的对象是一样的。<br>DMA 的自循环  ：<br>sinfo-&gt;dma_desc = dma_alloc_writecombine(info-&gt;device,<br>                    sinfo-&gt;dev_data-&gt;dma_desc_size,<br>                    &amp;(sinfo-&gt;dma_desc_phys), GFP_KERNEL);<br>分配 dam_desc 的地址是在 dma_desc_phys 处。update dma 的时候<br>desc-&gt;next = sinfo-&gt;dma_desc_phys;<br>这样将会指向自己。DMA 访问的是物理地址。</p>
 
           
         
@@ -377,7 +393,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -418,7 +434,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -426,7 +442,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -435,7 +451,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
