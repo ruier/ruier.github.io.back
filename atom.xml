@@ -308,7 +308,7 @@ Station1&amp;lt;- - - - -&amp;gt;AP1&amp;lt;- - - - -&amp;gt;AP2&amp;lt;- - - - 
     <link href="http://ruiers.com/2012/12/20/cross-compile-alsa/"/>
     <id>http://ruiers.com/2012/12/20/cross-compile-alsa/</id>
     <published>2012-12-20T08:35:13.000Z</published>
-    <updated>2016-07-01T08:42:33.679Z</updated>
+    <updated>2016-07-04T08:57:07.023Z</updated>
     
     <content type="html">&lt;h1 id=&quot;交叉编译-ALSA&quot;&gt;&lt;a href=&quot;#交叉编译-ALSA&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 ALSA&quot;&gt;&lt;/a&gt;交叉编译 ALSA&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;问题描述:在需要移植 android 录音问题的时候发现 buildroot 下没有 arecord
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解决方法;自己编译,使用交叉编译链&lt;/p&gt;
@@ -316,7 +316,7 @@ Station1&amp;lt;- - - - -&amp;gt;AP1&amp;lt;- - - - -&amp;gt;AP2&amp;lt;- - - - 
 &lt;p&gt;否则找不到就使用系统默认的 gcc 工具编译了&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://www.alsa-project.org/main/index.php/Download&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.alsa-project.org/main/index.php/Download&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;交叉编译-alsa-lib&quot;&gt;&lt;a href=&quot;#交叉编译-alsa-lib&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 alsa-lib&quot;&gt;&lt;/a&gt;交叉编译 alsa-lib&lt;/h2&gt;&lt;p&gt;./configure –host=arm-none-linux-gnueabi –prefix=/usr/share/arm-alsa&lt;br&gt;make &amp;amp; make install                                                                                        &lt;/p&gt;
+&lt;h2 id=&quot;交叉编译-alsa-lib&quot;&gt;&lt;a href=&quot;#交叉编译-alsa-lib&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 alsa-lib&quot;&gt;&lt;/a&gt;交叉编译 alsa-lib&lt;/h2&gt;&lt;p&gt;./configure –host=arm-none-linux-gnueabi –prefix=/usr/share/arm-alsa&lt;br&gt;make &amp;amp; make install&lt;/p&gt;
 &lt;h2 id=&quot;交叉编译-alsa-utils&quot;&gt;&lt;a href=&quot;#交叉编译-alsa-utils&quot; class=&quot;headerlink&quot; title=&quot;交叉编译 alsa-utils&quot;&gt;&lt;/a&gt;交叉编译 alsa-utils&lt;/h2&gt;&lt;p&gt;./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –without-alsamixer // avoid the ncurses lib &lt;/p&gt;
 &lt;p&gt;  使用&lt;br&gt;./configure –host=arm-none-linux-gnueabi –with-alsa-inc-prefix=/usr/share/arm-alsa/include –with-alsa-prefix=/usr/share/arm-alsa/lib –with-curses=/usr/lib32/libcurses.so –includedir=/usr/include/ –disable-alsamixer&lt;br&gt;   ref:&lt;a href=&quot;http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mailman.alsa-project.org/pipermail/alsa-devel/2007-June/001591.html&lt;/a&gt;&lt;br&gt;make&lt;br&gt;Copy lib to target board&lt;br&gt;cp -avr /usr/share/arm-alsa {$rootfs}/usr/share/arm-alsa&lt;/p&gt;
 &lt;h2 id=&quot;环境变量&quot;&gt;&lt;a href=&quot;#环境变量&quot; class=&quot;headerlink&quot; title=&quot;环境变量&quot;&gt;&lt;/a&gt;环境变量&lt;/h2&gt;&lt;p&gt;export ALSA_CONFIG_PATH=/usr/share/arm-alsa/share/alsa/alsa.conf&lt;br&gt;未添加环境变量前出现的错误：&lt;br&gt;~ # ./aplay&lt;br&gt;ALSA lib conf.c:2827:(snd_config_hook_load) cannot access file /usr/share/arm-alsa/share/alsa/cards/aliases.conf&lt;br&gt;ALSA lib pcm.c:1959:(snd_pcm_open_conf) Invalid type for PCM default definition (id: default, value: cards.pcm.default)&lt;br&gt;aplay: main:533: audio open error: Invalid argument&lt;br&gt;~ # ./aplay&lt;br&gt;ALSA lib pcm.c:2090:(snd_pcm_open_noupdate) Unknown PCM default&lt;br&gt;aplay: main:533: audio open error: No such file or directory&lt;/p&gt;
@@ -372,9 +372,9 @@ We should disable DMA when working with UBI ,
       <category term="Android" scheme="http://ruiers.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://ruiers.com/tags/Android/"/>
-    
       <category term="工作" scheme="http://ruiers.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+      <category term="Android" scheme="http://ruiers.com/tags/Android/"/>
     
   </entry>
   
