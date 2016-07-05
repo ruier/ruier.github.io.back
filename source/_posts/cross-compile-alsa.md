@@ -12,7 +12,7 @@ tags: 工作
 
 系统已经有 交叉编译工具 : 
 ls /usr/local/arm-2007q1/
-arm-none-linux-gnueabi/ include/                libexec/                
+arm-none-linux-gnueabi/ include/                libexec/
 bin/                    lib/                    share/
 需要将 bin 加入到 PATH 然后 ./configure 才能找到交叉编译工具
 checking for arm-none-linux-gnueabi-strip... arm-none-linux-gnueabi-strip
@@ -28,8 +28,8 @@ checking whether we are cross compiling... yes
 ## 下载
 http://www.alsa-project.org/main/index.php/Download
 ## 交叉编译 alsa-lib
-./configure --host=arm-none-linux-gnueabi --prefix=/usr/share/arm-alsa   
-make & make install                                                                                        
+./configure --host=arm-none-linux-gnueabi --prefix=/usr/share/arm-alsa
+make & make install
 ## 交叉编译 alsa-utils
 ./configure --host=arm-none-linux-gnueabi --with-alsa-inc-prefix=/usr/share/arm-alsa/include --with-alsa-prefix=/usr/share/arm-alsa/lib --without-alsamixer // avoid the ncurses lib 
 
@@ -40,7 +40,7 @@ make
 Copy lib to target board
 cp -avr /usr/share/arm-alsa {$rootfs}/usr/share/arm-alsa
 ## 环境变量
-export ALSA_CONFIG_PATH=/usr/share/arm-alsa/share/alsa/alsa.conf                                         
+export ALSA_CONFIG_PATH=/usr/share/arm-alsa/share/alsa/alsa.conf
 未添加环境变量前出现的错误：
 ~ # ./aplay 
 ALSA lib conf.c:2827:(snd_config_hook_load) cannot access file /usr/share/arm-alsa/share/alsa/cards/aliases.conf
